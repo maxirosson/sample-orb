@@ -10,6 +10,6 @@ usage:
     build:
       machine: true
       steps:
-        - sample-orb/greet:
-            username: "Hello World !!!"
         - sample-orb/verify_gradle_wrapper
+        - sample-orb/inspect_gradle_cache
+        - sample-orb/clean_gradle_cache

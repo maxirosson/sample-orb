@@ -1,0 +1,14 @@
+description: >
+  Clean Gradle Cache
+parameters:
+  gradleCachePath:
+    type: string
+    default: "~/.gradle"
+    description: "Gradle Cache Path"
+steps:
+  - run:
+      name: Clean gradle cache
+      command: |
+        find << parameters.gradleCachePath >> -name "*.lock" -type f -delete
+        rm -rf << parameters.gradleCachePath >>/daemon/
+        rm -rf << parameters.gradleCachePath >>/build-scan-data/
