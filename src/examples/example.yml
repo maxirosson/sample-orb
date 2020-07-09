@@ -5,10 +5,11 @@ description: >
 usage:
   version: 2.1
   orbs:
-    foo: bar/foo@1.2.3
+    sample-orb: jdroid/sample-orb@dev:alpha
   jobs:
     build:
       machine: true
       steps:
-        - foo/hello:
-            username: "Anna"
+        - sample-orb/greet:
+            username: "Hello World !!!"
+        - sample-orb/verify_gradle_wrapper
