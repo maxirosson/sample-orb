@@ -5,11 +5,11 @@ description: >
 usage:
   version: 2.1
   orbs:
-    sample-orb: jdroid/sample-orb@dev:alpha
+    gradle-orb: jdroid/sample-orb@dev:alpha
   jobs:
     build:
       machine: true
       steps:
-        - sample-orb/verify_gradle_wrapper
-        - sample-orb/inspect_gradle_cache
-        - sample-orb/clean_gradle_cache
+        - gradle-orb/verify_gradle_wrapper
+        - gradle-orb/inspect_cache
+        - gradle-orb/clean_up_gradle_cache

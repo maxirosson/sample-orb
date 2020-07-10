@@ -1,0 +1,27 @@
+description: >
+  Inspect Cache
+parameters:
+  cacheName:
+    type: string
+    default: "default"
+    description: "Cache Name"
+  cachePath:
+    type: string
+    default: "~/.gradle"
+    description: "Cache Path"
+steps:
+  - run:
+      name: Print << parameters.cacheName >> cache size
+      command: |
+        dir_name=<< parameters.cachePath >>
+        megabytes=$(du -ms $dir_name | cut -f 1)
+        echo "Size[du]: $megabytes MB"
+  - run:
+      name: Print << parameters.cacheName >> cache files count
+      command: |
+        dir_name=<< parameters.cachePath >>
+        count=$(find "$dir_name" -type f | wc -l | xargs echo)
+        echo "Files count: $count"
+  - run:
+      name: Print << parameters.gradleCacheName >> cache content
+      command: du -h << parameters.cachePath >>

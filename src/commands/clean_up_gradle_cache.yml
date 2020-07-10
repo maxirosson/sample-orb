@@ -1,5 +1,5 @@
 description: >
-  Clean Gradle Cache
+  Clean up Gradle Cache
 parameters:
   gradleCachePath:
     type: string
@@ -7,7 +7,7 @@ parameters:
     description: "Gradle Cache Path"
 steps:
   - run:
-      name: Clean gradle cache
+      name: Clean up gradle cache
       command: |
         find << parameters.gradleCachePath >> -name "*.lock" -type f -delete
         rm -rf << parameters.gradleCachePath >>/daemon/
