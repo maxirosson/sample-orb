@@ -1,21 +1,21 @@
 version: 2.1
 
-# add your orb below, to be used in integration tests (note: a @dev:alpha
-# release must exist.);
+# add your orb below, to be used in integration tests (note: a @dev:alpha release must exist)
 orbs:
-  sample-orb: jdroid/sample-orb@<<pipeline.parameters.dev-orb-version>>
+  gradle-orb: jdroid/sample-orb@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@9.0
 
-# Pipeline parameters
 parameters:
-  # These pipeline parameters are required by the "trigger-integration-tests-workflow"
-  # job, by default.
+  # These pipeline parameters are required by the "trigger-integration-tests-workflow" job, by default.
   run-integration-tests:
     type: boolean
     default: false
   dev-orb-version:
     type: string
     default: "dev:alpha"
+  orb-name:
+    type: string
+    default: "jdroid/sample-orb"
 
 jobs:
   # This job is an example of an integration testing job.
@@ -31,8 +31,7 @@ jobs:
     # - your-orb/your-orb-command
 
 workflows:
-  # This `lint-pack_validate_publish-dev` workflow will run on any commit.
-  lint_pack-validate_publish-dev:
+  commit:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
       - orb-tools/lint
@@ -49,7 +48,7 @@ workflows:
       # store CIRCLE_TOKEN as a project env var or Contexts resource
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
-          orb-name: jdroid/sample-orb
+          orb-name: << pipeline.parameters.orb-name >>
           requires:
             - orb-tools/pack
 
@@ -81,7 +80,7 @@ workflows:
       # be skipped.
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
-          orb-name: jdroid/sample-orb
+          orb-name: << pipeline.parameters.orb-name >>
 
           add-pr-comment: false
           fail-if-semver-not-indicated: true
