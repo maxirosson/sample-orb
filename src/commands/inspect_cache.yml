@@ -23,5 +23,5 @@ steps:
         count=$(find "$dir_name" -type f | wc -l | xargs echo)
         echo "Files count: $count"
   - run:
-      name: Print << parameters.gradleCacheName >> cache content
+      name: Print << parameters.cacheName >> cache content
       command: du -h << parameters.cachePath >>
