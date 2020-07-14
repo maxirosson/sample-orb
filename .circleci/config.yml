@@ -2,7 +2,7 @@ version: 2.1
 
 # add your orb below, to be used in integration tests (note: a @dev:alpha release must exist)
 orbs:
-  gradle-orb: jdroid/sample-orb@<<pipeline.parameters.dev-orb-version>>
+  gradle-orb: << pipeline.parameters.orb-name >>@<< pipeline.parameters.dev-orb-version >>
   orb-tools: circleci/orb-tools@9.0
 
 parameters:
@@ -66,22 +66,15 @@ workflows:
   integration-tests_prod-release:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      # your integration test jobs go here: essentially, run all your orb's
-      # jobs and commands to ensure they behave as expected. or, run other
-      # integration tests of your choosing
-
-      # an example job
       - integration-test-1
 
       # publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
-      # version will be published or if publishing should
-      # be skipped.
+      # version will be published or if publishing should be skipped.
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: << pipeline.parameters.orb-name >>
-
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: false
