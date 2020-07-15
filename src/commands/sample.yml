@@ -1,0 +1,6 @@
+description: >
+  Sample
+steps:
+  - run:
+      name: Sample step
+      command: echo << pipeline.parameters.paramA >>
