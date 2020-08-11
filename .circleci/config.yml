@@ -28,7 +28,7 @@ jobs:
     executor: orb-tools/ubuntu
     steps:
       - checkout
-    # - your-orb/your-orb-command
+      - sample-orb/sample
 
 workflows:
   commit:
